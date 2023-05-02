@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
     public float movespeed = 5f;
     public Rigidbody2D rb;
     public float jumpForce = 1f;
-    bool facingRight = true;
     public GameObject particles;
     float horizontalMovement;
     private void Start()
@@ -18,7 +17,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             Instantiate(particles, transform.position, Quaternion.identity);
