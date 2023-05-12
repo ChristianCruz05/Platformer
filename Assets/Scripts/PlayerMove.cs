@@ -21,10 +21,10 @@ public class PlayerMove : MonoBehaviour
     Color originalPlayerColor;
     SpriteRenderer playerSprite;
 
-    bool isGrounded = false;
+    private bool isGrounded = false;
 
     public int maxHealth = 100;
-    public int currentHealth;
+    private int currentHealth;
 
     public TextMeshProUGUI HealthText;
 

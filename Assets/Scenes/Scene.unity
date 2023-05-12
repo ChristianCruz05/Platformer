@@ -1139,8 +1139,7 @@ MonoBehaviour:
   rb: {fileID: 891086135}
   jumpForce: 15
   particles: {fileID: 4573669479017271567, guid: 98ef36b01917e4342ae12cb58e0c69a2, type: 3}
-  maxHealth: 10
-  currentHealth: 0
+  maxHealth: 100
   HealthText: {fileID: 1274630099}
 --- !u!61 &891086134
 BoxCollider2D:
