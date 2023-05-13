@@ -34,9 +34,10 @@ public class ScenesManager : MonoBehaviour
     public enum Scene
     {
         MainMenu,
+        LevelSelection,
         Sandbox,
-        Level1,
-        Level2,
+        LevelOne,
+        LevelTwo,
     }
 
     public void LoadScene(Scene scene)
@@ -46,7 +47,7 @@ public class ScenesManager : MonoBehaviour
 
     public void LoadNewGame()
     {
-        SceneManager.LoadScene(Scene.Sandbox.ToString());
+        SceneManager.LoadScene(Scene.LevelSelection.ToString());
     }
 
     public void LoadNextScene()
@@ -56,6 +57,6 @@ public class ScenesManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(Scene.MainMenu.ToString());
+        SceneManager.LoadScene(Scene.LevelSelection.ToString());
     }
 }

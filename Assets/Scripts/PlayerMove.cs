@@ -78,6 +78,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(collision.transform.tag == "ground")
         {
+            AudioManager.Instance.PlaySFX("impact_metal");
             isGrounded = true;
         }
         if (collision.transform.tag == "JumpPowerUp")
