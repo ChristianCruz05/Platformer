@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     SpriteRenderer playerSprite;
 
     private bool isGrounded = false;
+    private bool isFacingRight = true;
 
     public int maxHealth = 100;
     private int currentHealth;
@@ -50,11 +51,27 @@ public class PlayerMove : MonoBehaviour
             Instantiate(particles, transform.position, Quaternion.identity);
         }
         HealthText.SetText("Health: " + currentHealth.ToString());
+        if(horizontalMovement > 0f && !isFacingRight)
+        {
+            Flip();
+        }
+        if(horizontalMovement < 0f && isFacingRight)
+        {
+            Flip();
+        }
     }
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         horizontalMovement = Input.GetAxis("Horizontal") * movespeed * Time.deltaTime;
         transform.Translate(horizontalMovement, 0, 0); //tranform, move on its own
+    }
+
+    private void Flip()
+    {
+        Vector3 playerScale = gameObject.transform.localScale;
+        playerScale.x *= -1;
+        gameObject.transform.localScale = playerScale;
+        isFacingRight = !isFacingRight;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
