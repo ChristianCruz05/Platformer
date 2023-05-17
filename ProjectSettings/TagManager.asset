@@ -9,16 +9,18 @@ TagManager:
   - SpeedPowerUp
   - HealthPotion
   - Bullet
+  - Enemy
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - EnemyBullet
+  - Enemy
   - 
   - 
   - 

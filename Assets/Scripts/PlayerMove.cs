@@ -7,29 +7,36 @@ using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
-    //public float maxSpeed;
-    //public float maxJump;
-
+    //stats
     public float movespeed = 5f;
     public Rigidbody2D rb;
     public float jumpForce = 1f;
     float horizontalMovement;
 
+    //effects
     TrailRenderer trail;
     public GameObject particles;
     Color originalTrailColor;
     Color originalPlayerColor;
     SpriteRenderer playerSprite;
 
+    //check
     private bool isGrounded = false;
     private bool isFacingRight = true;
 
+    //health
     public int maxHealth = 100;
     private int currentHealth;
 
     public TextMeshProUGUI HealthText;
 
-    
+    //dashing
+    private bool canDash = true;
+    private bool isDashing;
+    [SerializeField] private float dashingPower = 24f;
+    private float dashingTime = 0.2f;
+    [SerializeField] private float dashingCooldown = 1f;
+
 
     private void Start()
     {
@@ -59,6 +66,15 @@ public class PlayerMove : MonoBehaviour
         {
             Flip();
         }
+        if (isDashing)
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
+            Instantiate(particles, transform.position, Quaternion.identity);
+        }
     }
     private void FixedUpdate()
     {
@@ -71,6 +87,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 playerScale = gameObject.transform.localScale;
         playerScale.x *= -1;
         gameObject.transform.localScale = playerScale;
+        
         isFacingRight = !isFacingRight;
     }
 
@@ -113,6 +130,7 @@ public class PlayerMove : MonoBehaviour
             Destroy(collision.transform.gameObject);
             Debug.Log("Bullet");
         }
+        
     }
 
     private IEnumerator TakeDamage()
@@ -145,5 +163,22 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(5f);
         jumpForce /= 2;
         trail.startColor = originalTrailColor;
+    }
+
+    private IEnumerator Dash()
+    {
+        trail.startColor = Color.white;
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rb.gravityScale; //store original gravity
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        yield return new WaitForSeconds(dashingTime);
+        trail.startColor = originalTrailColor;
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+        
     }
 }
