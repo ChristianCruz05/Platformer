@@ -75,6 +75,10 @@ public class PlayerMove : MonoBehaviour
             StartCoroutine(Dash());
             Instantiate(particles, transform.position, Quaternion.identity);
         }
+        if(currentHealth <= 0)
+        {
+            ScenesManager.Instance.LoadScene(ScenesManager.Scene.Sandbox);
+        }
     }
     private void FixedUpdate()
     {
@@ -104,6 +108,7 @@ public class PlayerMove : MonoBehaviour
             //jumpForce *= 2 ;
             StartCoroutine(JumpBoost());
             Debug.Log("Jump");
+            AudioManager.Instance.PlaySFX("pop");
         }
         if (collision.transform.tag == "SpeedPowerUp")
         {
@@ -111,11 +116,13 @@ public class PlayerMove : MonoBehaviour
             //movespeed *= 2;
             StartCoroutine(SpeedUp());
             Debug.Log("Speed");
+            AudioManager.Instance.PlaySFX("pop");
 
         }
         if (collision.transform.tag == "HealthPotion")
         {
-            if(currentHealth < maxHealth)
+            AudioManager.Instance.PlaySFX("pop");
+            if (currentHealth < maxHealth)
             {
                 currentHealth += 10;
             }
@@ -130,14 +137,29 @@ public class PlayerMove : MonoBehaviour
             Destroy(collision.transform.gameObject);
             Debug.Log("Bullet");
         }
+        if (collision.transform.tag == "Enemy")
+        {
+            StartCoroutine(TakeDamage());
+
+            Destroy(collision.transform.gameObject);
+            
+        }
         
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.transform.tag == "NextLevel")
+        {
+            StartCoroutine(NextLevel());
+        }
     }
 
     private IEnumerator TakeDamage()
     {
         playerSprite.color = Color.red;
-        if (currentHealth < 0)
-        {
+        if (currentHealth <= 0)
+        {           
             currentHealth = 0;
         }
         if (currentHealth > 0)
@@ -180,5 +202,12 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
         
+    }
+    private IEnumerator NextLevel()
+    {
+        trail.startColor = Color.green;
+        playerSprite.color = Color.green;
+        yield return new WaitForSeconds(1.5f);
+        ScenesManager.Instance.LoadNextScene();
     }
 }

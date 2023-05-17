@@ -45,6 +45,11 @@ public class ScenesManager : MonoBehaviour
         SceneManager.LoadScene(scene.ToString());
     }
 
+    public void LoadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
     public void LoadNewGame()
     {
         SceneManager.LoadScene(Scene.LevelSelection.ToString());

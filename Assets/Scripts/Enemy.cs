@@ -8,6 +8,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] float maxHealth = 100f;
 
     [SerializeField] FloatingStatusBar healthbar;
+
+
+    public Transform playerPos;
+    public bool isChasing;
+    public float chaseDistance;
+
+    public float chaseSpeed;
+
     private void Awake()
     {
         healthbar = GetComponentInChildren<FloatingStatusBar>();
@@ -25,6 +33,27 @@ public class Enemy : MonoBehaviour
         {
             TakeDamage(50f);
         }
+        if (isChasing)
+        {
+            if(transform.position.x > playerPos.position.x)
+            {
+                transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                transform.position += Vector3.left * chaseSpeed * Time.deltaTime;
+            }
+            if (transform.position.x < playerPos.position.x)
+            {
+                transform.localScale = new Vector3(-0.4f, 0.4f, 0.4f);
+                transform.position += Vector3.right * chaseSpeed * Time.deltaTime;
+            }
+        } 
+        else
+        {
+            if (Vector2.Distance(transform.position, playerPos.position) < chaseDistance)
+            {
+                isChasing = true;
+            }
+        }
+        
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -33,6 +62,11 @@ public class Enemy : MonoBehaviour
             Debug.Log("ow");
             TakeDamage(50f);
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(this.transform.position, chaseDistance);
     }
     private void TakeDamage(float amount)
     {
