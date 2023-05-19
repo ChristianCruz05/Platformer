@@ -12,19 +12,40 @@ public class BackPanelController : MonoBehaviour
     [SerializeField] Button goToMainMenu;
 
     [SerializeField] GameObject BackPanel;
-
+    [SerializeField] GameObject ControlsPanel;
     [SerializeField] string currentScene;
     private void Start()
     {
         restartLevel.onClick.AddListener(Restart);
         goToMainMenu.onClick.AddListener(GoToMenu);
         backToLevel.onClick.AddListener(BackToGame);
+
+
     }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            BackPanel.SetActive(true);
+            if (BackPanel.activeInHierarchy == true)
+            {
+                BackPanel.SetActive(false);
+            }
+            else
+            {
+                BackPanel.SetActive(true);
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.F1) && BackPanel.activeInHierarchy == false)
+        {
+            if(ControlsPanel.activeInHierarchy == true)
+            {
+                ControlsPanel.SetActive(false);
+            }
+            else
+            {
+                ControlsPanel.SetActive(true);
+            }
 
         }
     }

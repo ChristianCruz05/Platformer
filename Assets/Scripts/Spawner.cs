@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bullet.transform.position = transform.position;
         timer = 0f;
     }
 

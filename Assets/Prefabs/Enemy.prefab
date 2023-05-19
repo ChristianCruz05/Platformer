@@ -205,8 +205,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3815833237233323672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.11, y: -4.002, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalPosition: {x: -5.3, y: 0.17, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3815833238340596597}
@@ -304,8 +304,8 @@ MonoBehaviour:
   healthbar: {fileID: 0}
   playerPos: {fileID: 0}
   isChasing: 0
-  chaseDistance: 5
-  chaseSpeed: 3
+  chaseDistance: 15
+  chaseSpeed: 6
 --- !u!70 &3815833237233323678
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

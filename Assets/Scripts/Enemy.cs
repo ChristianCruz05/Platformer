@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        playerPos = GameObject.Find("Player").transform;
         currentHealth = maxHealth;
     }
 

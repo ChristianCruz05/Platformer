@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -77,7 +78,7 @@ public class PlayerMove : MonoBehaviour
         }
         if(currentHealth <= 0)
         {
-            ScenesManager.Instance.LoadScene(ScenesManager.Scene.Sandbox);
+            RestartScene();
         }
     }
     private void FixedUpdate()
@@ -209,5 +210,11 @@ public class PlayerMove : MonoBehaviour
         playerSprite.color = Color.green;
         yield return new WaitForSeconds(1.5f);
         ScenesManager.Instance.LoadNextScene();
+    }
+
+    public void RestartScene()
+    {
+        Scene thisScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(thisScene.name);
     }
 }
